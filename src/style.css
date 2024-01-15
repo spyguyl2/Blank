@@ -1,0 +1,253 @@
+:root {
+	--projectPanel: 2.5rem;
+	--toolBar: 40px;
+	--main: calc(100vh - calc(var(--projectPanel) + var(--toolBar)));
+    /*High Priority*/
+    --priorityHighBgColor: rgb(249, 103, 12);
+    --priorityHighTextColor: rgb(255, 255, 255);
+    --priorityHighCheckboxColor: rgb(241, 148, 18);
+    /*Medium Priority*/
+    --priorityMedBgColor: rgb(93, 19, 122);
+    --priorityMedTextColor: rgb(255, 255, 255);
+    --priorityMedCheckboxColor: rgb(1,1,1);
+    /*Low Priority*/
+    --priorityLowBgColor: rgb(89, 167, 110);
+    --priorityLowTextColor: rgb(255, 255, 255);
+    --priorityLowCheckboxColor: rgb(1,1,1);
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.tooltip span.tooltiptext {
+    --tooltipBackgroundcolor: lightcyan;
+
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--tooltipBackgroundcolor);
+    color: purple;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 2;
+    left: 100%;
+    margin-left: 15px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%; /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent var(--tooltipbackgroundcolor) transparent transparent;
+  }
+
+.content {
+    height: 100vh;
+    display: grid;
+    grid-template: var(--projectPanel) var(--toolBar) var(--main) / 3fr 1fr;
+    grid-template-areas: 
+    'projectPanel projectPanel'
+    'toolBar toolBar'
+    'todoPanel todoPanel';
+}
+
+.toolBar {
+    display: flex;
+    justify-content: center;
+    height: var(--toolBar);
+    grid-area: toolBar;
+    background-color: black;
+    z-index: 1;
+}
+
+.toolBar button {
+    margin-left: 10px;
+}
+
+.projectPanel {
+    display: flex;
+    justify-content: flex-start;
+    grid-area: projectPanel;
+    background-color: rgb(33, 9, 48);
+    height: var(--projectPanel);
+}
+
+.project, .project p, .todo p {
+    color: white;
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 35%;
+    border-top-left-radius: 35%;
+    background-color: rgb(54, 4, 54);
+    border: 2px solid saddlebrown;
+    max-width: 150px;
+    min-width: 50px;
+    height: 100%;
+    margin-left: 5px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.todoPanel {
+    grid-area: todoPanel;
+    height: var(--main);
+    background-color: rgb(57, 57, 57);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: clamp(5px, 2rem, 3rem);
+    width: 30%;
+    align-items: center;
+    background-color: dimgray;
+    cursor: pointer;
+    transition: 0.4s;
+    padding: 2px;
+}
+
+.todomain {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.tododropdown {
+    padding: 0 18px;
+    background-color: inherit;
+    display: none;
+}
+
+.tododropdown.show {
+    display: block;
+}
+
+.checkbox {
+    background-color: gray;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.low {
+    background-color: var(--priorityLowBgColor);
+    color: var(--priorityLowTextColor);
+    border: 1px solid var(--priorityLowTextColor);
+}
+
+.low.selected {
+    background-color: var(--priorityLowTextColor);
+    color: var(--priorityLowBgColor);
+    border: 1px solid var(--priorityLowBgColor);
+}
+
+.low .checkbox {
+    background-color: var(--priorityLowCheckboxColor);
+    
+}
+
+.med {
+    background-color: var(--priorityMedBgColor);
+    color: var(--priorityMedTextColor);
+    border: 1px solid var(--priorityMedTextColor);
+}
+
+.med.selected {
+    background-color: var(--priorityMedTextColor);
+    color: var(--priorityMedBgColor);
+    border: 1px solid var(--priorityMedBgColor);
+}
+
+.med .checkbox {
+    background-color: var(--priorityMedCheckboxColor);
+}
+
+.high {
+    background-color: var(--priorityHighBgColor);
+    color: var(--priorityHighTextColor);
+    border: 1px solid var(--priorityHighTextColor);
+}
+
+.high.selected {
+    background-color: var(--priorityHighTextColor);
+    color: var(--priorityHighBgColor);
+    border: 1px solid var(--priorityHighBgColor);
+}
+
+.high .checkbox {
+    background-color: var(--priorityHighCheckboxColor);
+}
+
+.modal-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+.modal-inner {
+    background-color: rgb(76, 71, 71);
+    display: flex;
+    padding: 10px;
+    width: 12rem;
+    height: fit-content;
+    margin-bottom: 20rem;
+    z-index: 2;
+}
+
+.newtodomodalbuttonwrapper {
+    display: flex;
+}
+
+.newtodomodalbuttonwrapper>button {
+    width: 100%;
+}
+
+.prioritybuttons {
+    display: flex;
+}
+
+.prioritybuttons>button {
+    width: 100%;
+}
+
+form>label, form button {
+    margin: 5px 0;
+}
+
+hr {
+    width: 100%;
+}
